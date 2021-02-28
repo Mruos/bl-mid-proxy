@@ -20,3 +20,8 @@ if __name__ == '__main__':
     res=redis.get("小若")
 
     print(res)
+
+
+    logging = MidProxySDK.MidLogging('http://192.168.1.2:9606/api/logging')
+
+    logging.info('test','this is info message.')

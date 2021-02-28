@@ -1,6 +1,6 @@
 bl-mid-proxy，中间件代理端
 
-目前本中间件，主要实现mysql连接池、redis连接池、crontab任务定时器三大功能。
+目前本中间件，主要实现mysql连接池、redis连接池、crontab任务定时器、logging多色日志输出，四大功能。
 
 本中间件实质为一个代理服务端，通过http请求进行通信，任何编程语言都可以对接。
 

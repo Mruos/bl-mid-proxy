@@ -18,6 +18,8 @@
 [sys]
 ;是否开启mysql连接池
 on=1
+;不在界面日志显示sql执行信息（业务sql体量大时不建议显示，以免占用日志过多，调试时可通过命令临时显示sql日志或在日志文件查看）
+unshow_ui_log=1
 ;连接池数量
 connectSum=30
 adress=localhost

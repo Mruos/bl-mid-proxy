@@ -1,4 +1,3 @@
-package cn.sdk.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

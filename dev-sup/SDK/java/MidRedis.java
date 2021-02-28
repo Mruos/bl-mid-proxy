@@ -1,8 +1,4 @@
-package cn.sdk.controller;
-/**
- * @author hexiangxiang
- * @date 2020/12/24 13:17
- **/
+
 public class MidRedis {
     private String url;
 

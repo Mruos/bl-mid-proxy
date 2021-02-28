@@ -1,8 +1,4 @@
-package cn.sdk.controller;
-/**
- * @author hexiangxiang
- * @date 2020/12/24 13:16
- **/
+
 public class MidMysql {
     private String url ;
 

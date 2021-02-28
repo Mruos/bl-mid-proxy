@@ -5,8 +5,10 @@ header("Content-Type: text/html;charset=utf-8");
 // 引入SDK
 include 'bl.mid.proxy.php';
 
-define('MYSQL_ROOT', 'http://192.168.1.108:9606/api/mysql');
-define('REDIS_ROOT', 'http://192.168.1.108:9606/api/redis');
+define('MYSQL_ROOT', 'http://192.168.1.2:9606/api/mysql');
+define('REDIS_ROOT', 'http://192.168.1.2:9606/api/redis');
+define('LOGGING_ROOT', 'http://192.168.1.2:9606/api/logging');
+
 
 // 执行sql
 $mysql=new MidMysql(MYSQL_ROOT);
@@ -36,4 +38,15 @@ echo $res;
 echo '<br>';
 
 
-?>
+// logging test
+$logging=new MidLogging(LOGGING_ROOT);
+
+$logging->info('test','this is info msg.');
+$logging->error('test','this is error msg.');
+$logging->debug('test','this is debug msg.');
+$logging->input('test','this is input msg.');
+$logging->output('test','this is output msg.');
+$logging->important('test','this is important msg.');
+$logging->warning('test','this is warning msg.');
+$logging->custom('test','this is custom msg.',$fontColor='16756453',$fontSize=16);
+

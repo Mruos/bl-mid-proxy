@@ -3,7 +3,7 @@
 
 /*bl-mid-proxy，中间件代理端
 
-目前本中间件，主要实现mysql连接池、redis连接池、crontab任务定时器三大功能。
+目前本中间件，主要实现mysql连接池、redis连接池、crontab任务定时器、logging四大功能。
 
 本中间件实质为一个代理服务端，通过http请求进行通信，任何编程语言都可以对接。
 
@@ -131,6 +131,174 @@ class MidRedis{
 
         return $res;
 
+    }
+
+}
+
+/**
+ * logging中间件
+ *
+ * @param  string $api_url 中间件的redis基础地址
+ */
+class MidLogging{
+
+    private $api_url="";
+    private $onDebug=false;
+
+    public function __construct($apiUrl,$debug=false){    // 构造函数
+        $this->api_url=$apiUrl;
+        $this->$onDebug=$debug;
+    }
+
+
+    public function info($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='info';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+    public function error($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='error';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function important($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='important';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function system($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='system';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function debug($type,$content){
+
+        if($this->onDebug==false){
+            return ;
+        }
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='debug';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function input($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='input';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function output($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='output';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function warning($type,$content){
+
+        $http=new Myhttp();
+
+        $json=[];
+        $json['level']='warning';
+        $json['type']=$type;
+        $json['content']=$content;
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
+    }
+
+
+    public function custom($type,$content,$fontName='宋体',$fontSize=13,$fontShow=0,$fontY=0,$fontColor=16777215){
+
+        $http=new Myhttp();
+
+        // '''
+        // 自定义日志内容样式
+        // :param type:日志类型
+        // :param content: 日志内容
+        // :param fontName: 字体名称，默认：宋体
+        // :param fontSize: 字体大小，默认：13
+        // :param fontShow: 字体效果，1=粗体  2=斜体  4=下划线  8=删除线  16=禁止更改   可以相加为新值（3=粗体+斜体）
+        // :param fontY:字体纵轴偏移，>0 上标   <0 下标
+        // :param fontColor:字体颜色，在日志窗口输入“sys get color”打开颜色数值调试
+        // :return:
+        // '''
+
+        $json=[];
+        $json['level']='custom';
+        $json['type']=$type;
+        $json['content']=$content;
+
+        $style=[];
+        $style['fontName']=$fontName;
+        $style['fontSize']=$fontSize;
+        $style['fontShow']=$fontShow;
+        $style['y']=$fontY;
+        $style['color']=$fontColor;
+
+        $json['style']=$style;
+   
+        $json=json_encode($json,JSON_UNESCAPED_UNICODE);
+
+        $res=$http->post($this->api_url,$json);
     }
 
 }
